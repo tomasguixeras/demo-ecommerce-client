@@ -1,8 +1,11 @@
+import { Button, ColorModeScript, useColorMode } from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
+import theme from '../theme'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <div className={styles.container}>
       <Head>
@@ -12,6 +15,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <Button colorScheme="primary" onClick={toggleColorMode}>
+        Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+      </Button>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
