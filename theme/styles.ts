@@ -1,4 +1,4 @@
-import { StyleFunctionProps, theme } from "@chakra-ui/react";
+import { theme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
 const styles = {
