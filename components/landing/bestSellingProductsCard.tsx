@@ -1,17 +1,17 @@
 import { Card, CardBody, Heading, Stack, Text } from "@chakra-ui/react";
 import Image from "next/legacy/image";
 
-interface MostSelledCardInterface {
+interface BestSellingProductsCardInterface {
   image: string;
   heading: string;
   text: string;
 }
 
-export default function MostSelledCard({
+export default function BestSellingProductsCard({
   image,
   heading,
   text,
-}: MostSelledCardInterface) {
+}: BestSellingProductsCardInterface) {
   return (
     <Card maxW="sm">
       <CardBody>
