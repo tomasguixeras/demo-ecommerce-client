@@ -13,6 +13,9 @@ import AboutUsLanding from "../components/landing/aboutUsLanding";
 import Footer from "../components/footer/footer";
 import StepsForBuy from "../components/landing/stepsForBuy";
 import NavBar from "../components/navBar/navBar";
+import MySwiper from "../components/landing/mySwiper";
+import PaymentMethods from "../components/landing/paymentMethods";
+import ReviewsOfUsers from "../components/landing/reviewsOfUsers";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -25,15 +28,10 @@ export default function Home() {
   loading! && console.log(products);
   return (
     <Layout title="Demo-Ecommerce">
-      <Stack direction="column" spacing="10">
+      <Stack direction="column" spacing="12">
         <NavBar />
         <Center>
-          <Skeleton
-            height="400px"
-            width="95%"
-            isLoaded={false}
-            borderRadius="10px"
-          ></Skeleton>
+          <MySwiper />
         </Center>
         <Center>
           <AboutUsLanding />
@@ -83,6 +81,17 @@ export default function Home() {
             </Heading>
             <SomeCategories />
           </Stack>
+        </Center>
+        <Center>
+          <PaymentMethods />
+        </Center>
+        <Center>
+          <Heading as="h1" size="xl" textAlign="center">
+            Some reviews from our clients
+          </Heading>
+        </Center>
+        <Center>
+          <ReviewsOfUsers />
         </Center>
         <Footer />
       </Stack>
