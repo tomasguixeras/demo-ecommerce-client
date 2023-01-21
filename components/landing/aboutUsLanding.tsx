@@ -1,12 +1,20 @@
-import { Box, Heading, SkeletonText } from "@chakra-ui/react";
+import { Box, Heading, SkeletonText, Text } from "@chakra-ui/react";
 
 export default function AboutUsLanding() {
   return (
-    <Box padding="6" boxShadow="xl" width="60%" borderRadius="10px">
+    <Box padding="6" boxShadow="xl" width="50%" borderRadius="10px">
       <Heading textAlign="center" as="h1" size="l">
         About us
       </Heading>
-      <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
+      <Text>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem
+      </Text>
     </Box>
   );
 }

@@ -7,12 +7,15 @@ import {
   fetchAllProducts,
 } from "../features/guest/guestSlice";
 import Layout from "../components/layout/layout";
-import MostSelledCard from "../components/landing/mostSelledCard";
+import BestSellingProductsCard from "../components/landing/bestSellingProductsCard";
 import SomeCategories from "../components/landing/someCategories";
 import AboutUsLanding from "../components/landing/aboutUsLanding";
 import Footer from "../components/footer/footer";
 import StepsForBuy from "../components/landing/stepsForBuy";
 import NavBar from "../components/navBar/navBar";
+import MySwiper from "../components/landing/mySwiper";
+import PaymentMethods from "../components/landing/paymentMethods";
+import ReviewsOfUsers from "../components/landing/reviewsOfUsers";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -25,15 +28,10 @@ export default function Home() {
   loading! && console.log(products);
   return (
     <Layout title="Demo-Ecommerce">
-      <Stack direction="column" spacing="10">
+      <Stack direction="column" spacing="12">
         <NavBar />
         <Center>
-          <Skeleton
-            height="400px"
-            width="95%"
-            isLoaded={false}
-            borderRadius="10px"
-          ></Skeleton>
+          <MySwiper />
         </Center>
         <Center>
           <AboutUsLanding />
@@ -41,25 +39,25 @@ export default function Home() {
         <Center>
           <Stack direction="column">
             <Heading as="h1" size="xl" textAlign="center">
-              Most selled products
+              Best selling products
             </Heading>
             <Stack direction="row" spacing="8">
-              <MostSelledCard
+              <BestSellingProductsCard
                 image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 heading="Living room Sofa"
                 text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
               />
-              <MostSelledCard
+              <BestSellingProductsCard
                 image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 heading="Living room Sofa"
                 text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
               />
-              <MostSelledCard
+              <BestSellingProductsCard
                 image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 heading="Living room Sofa"
                 text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
               />
-              <MostSelledCard
+              <BestSellingProductsCard
                 image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
                 heading="Living room Sofa"
                 text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
@@ -83,6 +81,17 @@ export default function Home() {
             </Heading>
             <SomeCategories />
           </Stack>
+        </Center>
+        <Center>
+          <PaymentMethods />
+        </Center>
+        <Center>
+          <Heading as="h1" size="xl" textAlign="center">
+            Some reviews from our clients
+          </Heading>
+        </Center>
+        <Center>
+          <ReviewsOfUsers />
         </Center>
         <Footer />
       </Stack>
