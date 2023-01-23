@@ -1,17 +1,16 @@
-import React, { useRef, useState } from "react";
-// Import Swiper React components
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-// import required modules
 import { Navigation, Autoplay } from "swiper";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-export default function App() {
+export default function App({ products }: any) {
+  const router = useRouter();
   return (
     <>
       <Swiper
@@ -27,109 +26,27 @@ export default function App() {
         navigation={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper"
+        style={{ width: "95%", height: "100%" }}
       >
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image
-            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            alt="Most Selled Product"
-            width="450"
-            height="300"
-            layout="responsive"
-            style={{ borderRadius: "8px" }}
-          />
-        </SwiperSlide>
+        {products.length > 0 &&
+          products.map((products: any) => (
+            <SwiperSlide>
+              <Image
+                src={products && products.image}
+                alt="Most Selled Product"
+                width="600"
+                height="600"
+                style={{
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  display: "block",
+                  objectFit: "contain",
+                }}
+                onClick={() => router.push(`/${products.id}`)}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
-}
-
-{
-  /* <Image
-  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-  alt="Most Selled Product"
-  width="450"
-  height="300"
-  layout="responsive"
-  style={{ borderRadius: "8px" }}
-/> */
 }
