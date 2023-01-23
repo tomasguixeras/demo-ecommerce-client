@@ -21,47 +21,36 @@ export default function Home() {
   const dispatch: AppDispatch = useDispatch();
   const products = useSelector((state: RootState) => state.guest.products);
   const loading = useSelector((state: RootState) => state.guest.loading);
+  const bestSeelingProducts = products.slice(0, 5);
   useEffect(() => {
     dispatch(fetchAllProducts());
     dispatch(fetchAllCategories());
   }, [dispatch]);
-  loading! && console.log(products);
   return (
     <Layout title="Demo-Ecommerce">
       <Stack direction="column" spacing="12">
         <NavBar />
         <Center>
-          <MySwiper />
+          <MySwiper products={products} />
         </Center>
         <Center>
           <AboutUsLanding />
         </Center>
         <Center>
-          <Stack direction="column">
+          <Stack direction="column" width="80%">
             <Heading as="h1" size="xl" textAlign="center">
               Best selling products
             </Heading>
-            <Stack direction="row" spacing="8">
-              <BestSellingProductsCard
-                image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                heading="Living room Sofa"
-                text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
-              />
-              <BestSellingProductsCard
-                image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                heading="Living room Sofa"
-                text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
-              />
-              <BestSellingProductsCard
-                image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                heading="Living room Sofa"
-                text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
-              />
-              <BestSellingProductsCard
-                image="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                heading="Living room Sofa"
-                text="Excelente producto para relajarse y descansar mientras se codea un proyectito"
-              />
+            <Stack direction="row" spacing="4">
+              {bestSeelingProducts.length > 0 &&
+                bestSeelingProducts.map((products: any) => (
+                  <BestSellingProductsCard
+                    id={products.id}
+                    image={products && products.image}
+                    heading={products.model}
+                    text={products.description}
+                  />
+                ))}
             </Stack>
           </Stack>
         </Center>

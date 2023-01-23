@@ -21,14 +21,24 @@ export const fetchAllCategories = createAsyncThunk(
   }
 );
 
+export const fetchProductById = createAsyncThunk(
+  "product/fetchById",
+  async (id: string | string[]) => {
+    const response = await fetch(`${baseURL}/products/${id}`);
+    return await response.json();
+  }
+);
+
 interface GuestState {
   products: any[];
+  productDetail: any[];
   categories: any[];
   loading: boolean;
 }
 
 const initialState: GuestState = {
   products: [],
+  productDetail: [],
   categories: [],
   loading: false,
 };
@@ -47,6 +57,9 @@ export const guestSlice = createSlice({
       });
     builder.addCase(fetchAllCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
+    });
+    builder.addCase(fetchProductById.fulfilled, (state, action) => {
+      state.productDetail = action.payload;
     });
   },
 });
