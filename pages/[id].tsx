@@ -1,6 +1,6 @@
 import { Box, Stack, Center, Skeleton, Divider } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import NavBar from "../components/navBar/navBar";
@@ -45,13 +45,7 @@ export default function Detail() {
             </Stack>
           )}
           {productDetail.length !== 0 && productDetail.id.toString() === id ? (
-            <InfoProduct
-              brand={productDetail.brand && productDetail.brand.name}
-              model={productDetail.model}
-              price={productDetail.price}
-              quantity={productDetail.quantity}
-              description={productDetail.description}
-            />
+            <InfoProduct productDetail={productDetail} />
           ) : (
             <Stack
               direction="column"

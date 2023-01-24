@@ -40,7 +40,7 @@ export default function App({ products }: any) {
                   borderRadius: "8px",
                   cursor: "pointer",
                   display: "block",
-                  objectFit: "contain",
+                  objectFit: "fill",
                 }}
                 onClick={() => router.push(`/${products.id}`)}
               />
