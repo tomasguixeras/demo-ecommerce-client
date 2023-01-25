@@ -9,26 +9,20 @@ import {
   NumberInputStepper,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsHeart } from "react-icons/bs";
+import useLocalStorage from "../cart/useLocalStorage";
 
 interface infoProduct {
-  brand: string;
-  model: string;
-  price: number;
-  quantity: number;
-  description: string;
+  productDetail: any;
 }
 
-export default function InfoProduct({
-  brand,
-  model,
-  price,
-  quantity,
-  description,
-}: infoProduct) {
+export default function InfoProduct({ productDetail }: infoProduct) {
+  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
   const [quantityToBuy, setQuantityToBuy] = useState(1);
+  const toast = useToast();
   return (
     <Stack
       direction="column"
@@ -42,24 +36,24 @@ export default function InfoProduct({
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize={20} fontWeight="bold" color="blackAlpha.600">
-          {brand}
+          {productDetail.brand.name}
         </Text>
         <Icon aria-label="fav" as={BsHeart} boxSize={6} />
       </Stack>
       <Text fontSize={30} fontWeight="bold" color="blackAlpha.800">
-        {model}
+        {productDetail.model}
       </Text>
       <Divider />
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Text fontSize={30} fontWeight="bold" color="blue.500">
-          ${price}
+          ${productDetail.price}
         </Text>
         <Text
           fontSize={20}
           fontWeight="bold"
-          color={quantity > 0 ? "green.400" : "red.400"}
+          color={productDetail.quantity > 0 ? "green.400" : "red.400"}
         >
-          Stock: {quantity}
+          Stock: {productDetail.quantity}
         </Text>
       </Stack>
       <Divider />
@@ -81,7 +75,7 @@ export default function InfoProduct({
             color="blackAlpha.600"
             textAlign="center"
           >
-            {description}
+            {productDetail.description}
           </Text>
         </Stack>
       </Stack>
@@ -93,23 +87,38 @@ export default function InfoProduct({
         <NumberInput
           size="sm"
           defaultValue={quantityToBuy}
-          max={quantity}
+          max={productDetail.quantity}
           min={0}
           maxW="100px"
         >
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper
-              onChange={() => setQuantityToBuy(quantity + 1)}
+              onChange={() => setQuantityToBuy(productDetail.quantity + 1)}
             />
             <NumberDecrementStepper
-              onChange={() => setQuantityToBuy(quantity - 1)}
+              onChange={() => setQuantityToBuy(productDetail.quantity - 1)}
             />
           </NumberInputStepper>
         </NumberInput>
       </Stack>
       <Stack direction="row" justifyContent="center">
-        <Button colorScheme="blue" width="40%" mt={5}>
+        <Button
+          colorScheme="blue"
+          width="40%"
+          mt={5}
+          onClick={() => {
+            setCartProducts([...cartProducts, productDetail]);
+            toast({
+              title: "Product Added",
+              status: "success",
+              duration: 1000,
+              variant: "subtle",
+              position: "bottom-right",
+              isClosable: true,
+            });
+          }}
+        >
           Add to cart
         </Button>
       </Stack>

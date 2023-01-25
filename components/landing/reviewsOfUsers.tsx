@@ -41,26 +41,29 @@ export default function ReviewsOfUsers() {
       >
         <SwiperSlide>
           <CardOfReviews
-            avatar="https://bit.ly/dan-abramov"
+            src="https://bit.ly/dan-abramov"
             name="Juan Jose"
-            title="Buenas"
+            title="Google CEO"
+            heading="Muy bueno"
             text="Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno"
           />
         </SwiperSlide>
         <SwiperSlide>
           <CardOfReviews
-            avatar="https://bit.ly/dan-abramov"
+            src="https://bit.ly/dan-abramov"
             name="Juan Jose"
-            title="Buenas"
+            title="Rappi CTO"
+            heading="Muy bueno"
             text="Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno, Me parecio muy bueno."
           />
         </SwiperSlide>
         <SwiperSlide>
           <CardOfReviews
-            avatar="https://bit.ly/dan-abramov"
+            src="https://bit.ly/dan-abramov"
             name="Juan Jose"
-            title="Buenas"
+            title="Globant Developer"
             text="Me parecio muy bueno"
+            heading="Muy bueno"
           />
         </SwiperSlide>
       </Swiper>

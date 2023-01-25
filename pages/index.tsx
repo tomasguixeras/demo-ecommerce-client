@@ -10,12 +10,13 @@ import Layout from "../components/layout/layout";
 import BestSellingProductsCard from "../components/landing/bestSellingProductsCard";
 import SomeCategories from "../components/landing/someCategories";
 import AboutUsLanding from "../components/landing/aboutUsLanding";
-import Footer from "../components/footer/footer";
+import Footer from "../components/footer/smallFooter";
 import StepsForBuy from "../components/landing/stepsForBuy";
 import NavBar from "../components/navBar/navBar";
 import MySwiper from "../components/landing/mySwiper";
 import PaymentMethods from "../components/landing/paymentMethods";
 import ReviewsOfUsers from "../components/landing/reviewsOfUsers";
+import Footer2 from "../components/footer/largeFooter";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -82,7 +83,7 @@ export default function Home() {
         <Center>
           <ReviewsOfUsers />
         </Center>
-        <Footer />
+        <Footer2 />
       </Stack>
     </Layout>
   );
