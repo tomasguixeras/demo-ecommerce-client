@@ -1,31 +1,30 @@
 import { useEffect } from "react";
-import { Center, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import { Center, Heading, Stack } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
-import {
-  fetchAllCategories,
-  fetchAllProducts,
-} from "../features/guest/guestSlice";
 import Layout from "../components/layout/layout";
 import BestSellingProductsCard from "../components/landing/bestSellingProductsCard";
 import SomeCategories from "../components/landing/someCategories";
 import AboutUsLanding from "../components/landing/aboutUsLanding";
-import Footer from "../components/footer/smallFooter";
 import StepsForBuy from "../components/landing/stepsForBuy";
 import NavBar from "../components/navBar/navBar";
 import MySwiper from "../components/landing/mySwiper";
 import PaymentMethods from "../components/landing/paymentMethods";
 import ReviewsOfUsers from "../components/landing/reviewsOfUsers";
 import Footer2 from "../components/footer/largeFooter";
+import { fetchAllProducts } from "../features/guest/Products/actionsProductsGuest";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.guest.products);
-  const loading = useSelector((state: RootState) => state.guest.loading);
+  const products = useSelector(
+    (state: RootState) => state.productsGuest.products
+  );
+  const loading = useSelector(
+    (state: RootState) => state.productsGuest.loading
+  );
   const bestSeelingProducts = products.slice(0, 5);
   useEffect(() => {
     dispatch(fetchAllProducts());
-    dispatch(fetchAllCategories());
   }, [dispatch]);
   return (
     <Layout title="Demo-Ecommerce">
