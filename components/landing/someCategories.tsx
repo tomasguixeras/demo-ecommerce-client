@@ -10,7 +10,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 
 export default function SomeCategories() {
-  const categories = useSelector((state: RootState) => state.guest.categories);
+  const categories = useSelector(
+    (state: RootState) => state.categoriesGuest.categories
+  );
   return (
     <Stack padding="6" boxShadow="xl" borderRadius="10px">
       <Grid templateColumns="repeat(6, 3fr)" gap={6}>

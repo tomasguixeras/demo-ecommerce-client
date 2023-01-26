@@ -4,16 +4,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import NavBar from "../components/navBar/navBar";
-import { fetchProductById } from "../features/guest/guestSlice";
 import Galery from "../components/detail/galery";
 import InfoProduct from "../components/detail/infoProduct";
+import { fetchProductById } from "../features/guest/Products/actionsProductsGuest";
 
 export default function Detail() {
   const router = useRouter();
   const { id } = router.query;
   const dispatch: AppDispatch = useDispatch();
   const productDetail: any = useSelector(
-    (state: RootState) => state.guest.productDetail
+    (state: RootState) => state.productsGuest.productDetail
   );
 
   useEffect(() => {
