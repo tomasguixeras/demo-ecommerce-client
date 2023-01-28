@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Center, Heading, Stack } from "@chakra-ui/react";
+import {
+  Center,
+  Heading,
+  Stack,
+  useColorMode,
+  useTheme,
+} from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../app/store";
 import Layout from "../components/layout/layout";
@@ -41,7 +47,7 @@ export default function Home() {
             <Heading as="h1" size="xl" textAlign="center">
               Best selling products
             </Heading>
-            <Stack direction="row" spacing="4">
+            <Stack direction="row" spacing="6">
               {bestSeelingProducts.length > 0 &&
                 bestSeelingProducts.map((products: any) => (
                   <BestSellingProductsCard

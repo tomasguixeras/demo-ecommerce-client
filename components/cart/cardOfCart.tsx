@@ -1,18 +1,37 @@
-import { CloseButton, IconButton, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  CloseButton,
+  Flex,
+  HStack,
+  Icon,
+  Input,
+  Link,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store";
+import { calculateTotal } from "../../features/guest/Cart/actionsCartGuest";
+import productsGuestSlice from "../../features/guest/products/productsGuestSlice";
+import { ModalCart } from "./modalCart";
 import useLocalStorage from "./useLocalStorage";
 
 interface CardOfCart {
-  handleLeaveProduct: (id: number) => void;
   id: number;
   price: number;
   stock: number;
   image: string;
   name: string;
   brand: string;
+  isOpen: boolean;
   onOpen: () => void;
-  setId: Dispatch<SetStateAction<number>>;
+  onClose: () => void;
+  setIdProducts: Dispatch<SetStateAction<number>>;
+  handleLeaveProduct: () => void;
 }
 
 export default function CardOfCart({
@@ -22,53 +41,119 @@ export default function CardOfCart({
   image,
   name,
   brand,
-  handleLeaveProduct,
+  isOpen,
   onOpen,
-  setId,
+  onClose,
+  setIdProducts,
+  handleLeaveProduct,
 }: CardOfCart) {
+  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts");
+  const dispatch: AppDispatch = useDispatch();
+  const [quantity, setQuantity] = useState(0);
+
+  const getIncrementButtonProps = () => {
+    let element = cartProducts.find((product: any) => product.id === id);
+    let restProducts = cartProducts.filter((product: any) => product.id !== id);
+    if (element.id === id && element.quantity < stock) {
+      element.quantity++;
+    }
+    setCartProducts([...restProducts, element]);
+  };
+  const getDecrementButtonProps = () => {
+    let element = cartProducts.find((product: any) => product.id === id);
+    let restProducts = cartProducts.filter((product: any) => product.id !== id);
+    if (element.id === id && element.quantity > 1) {
+      element.quantity--;
+      setCartProducts([...restProducts, element]);
+    } else if (element.id === id && element.quantity === 1) {
+      setIdProducts(id);
+      onOpen();
+    }
+  };
+
+  useEffect(() => {
+    let element = cartProducts.find((product: any) => product.id === id);
+    element && setQuantity(element.quantity);
+    dispatch(calculateTotal(price, quantity));
+  }, [cartProducts]);
   return (
-    <Stack
-      direction="row"
-      paddingX={5}
-      paddingY={2}
-      width="100%"
-      justifyContent="space-between"
+    <Flex
+      direction={{ base: "column", md: "row" }}
+      justify="space-between"
+      align="center"
     >
-      <Image
-        src={image}
-        alt={name}
-        width="120"
-        height="120"
-        layout="reponsive"
-        style={{
-          borderRadius: "5px",
-          borderWidth: "2px",
-          borderStyle: "solid",
-          borderColor: "#FFFFFF80",
-        }}
-      />
-      <Stack direction="column" width="60%">
-        <Stack direction="row" justifyContent="flex-start" alignItems="center">
-          <Text>
-            {brand} {name}
-          </Text>
-        </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Text>Quantity: {stock}</Text>
-          <Text>${price}</Text>
-        </Stack>
+      <Stack direction="row" spacing="5" width="full">
+        <Image
+          width="120"
+          height="120"
+          objectFit="cover"
+          src={image}
+          alt={name}
+          draggable="false"
+          loading="lazy"
+          style={{
+            borderRadius: "5px",
+            borderColor: "blue.300",
+            borderStyle: "solid",
+          }}
+        />
+        <Box pt="4">
+          <Stack spacing="0.5">
+            <Text fontWeight="medium">
+              {brand} {name}
+            </Text>
+            <Text color="gray.600" fontSize="sm">
+              Stock: {stock}
+            </Text>
+          </Stack>
+        </Box>
       </Stack>
-      <CloseButton
-        size="sm"
-        onClick={() => {
-          onOpen();
-          setId(id);
-        }}
+      <Flex
+        width="full"
+        justify="space-between"
+        display={{ base: "none", md: "flex" }}
+      >
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <Button
+            boxSize={6}
+            onClick={() => getIncrementButtonProps()}
+            border="none"
+            bgColor="#00000000"
+          >
+            +
+          </Button>
+          <Input
+            textAlign="center"
+            width={40}
+            height={8}
+            value={quantity}
+            border="none"
+          />
+          <Button
+            boxSize={6}
+            onClick={() => getDecrementButtonProps()}
+            border="none"
+            bgColor="#00000000"
+          >
+            -
+          </Button>
+        </Stack>
+        <Text>${price}</Text>
+        <CloseButton
+          aria-label={`Delete ${name} from cart`}
+          onClick={() => {
+            setIdProducts(id);
+            onOpen();
+          }}
+          border="none"
+          cursor="pointer"
+        />
+      </Flex>
+      <ModalCart
+        isOpen={isOpen}
+        onClose={onClose}
+        handleLeaveProduct={handleLeaveProduct}
       />
-    </Stack>
+    </Flex>
   );
 }

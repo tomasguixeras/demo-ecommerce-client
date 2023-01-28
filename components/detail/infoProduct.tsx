@@ -20,9 +20,55 @@ interface infoProduct {
 }
 
 export default function InfoProduct({ productDetail }: infoProduct) {
-  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts", []);
+  const [cartProducts, setCartProducts] = useLocalStorage("cartProducts");
   const [quantityToBuy, setQuantityToBuy] = useState(1);
   const toast = useToast();
+  const getIncrementQuantity = () => {
+    let findProduct = cartProducts.find(
+      (product: any) => product.id === productDetail.id
+    );
+    if (!findProduct) {
+      setCartProducts([...cartProducts, { id: productDetail.id, quantity: 1 }]);
+      return toast({
+        title: "Product added",
+        status: "success",
+        duration: 1000,
+        variant: "subtle",
+        position: "bottom-right",
+        isClosable: true,
+      });
+    } else {
+      let element = cartProducts.find(
+        (product: any) => product.id === productDetail.id
+      );
+      let restProducts = cartProducts.filter(
+        (product: any) => product.id !== productDetail.id
+      );
+      if (
+        element.id === productDetail.id &&
+        element.quantity < productDetail.quantity
+      ) {
+        element.quantity++;
+        setCartProducts([...restProducts, element]);
+        return toast({
+          title: "Product quantity increased",
+          status: "success",
+          duration: 1000,
+          variant: "subtle",
+          position: "bottom-right",
+          isClosable: true,
+        });
+      }
+      return toast({
+        title: "There is no more stock available",
+        status: "success",
+        duration: 1000,
+        variant: "subtle",
+        position: "bottom-right",
+        isClosable: true,
+      });
+    }
+  };
   return (
     <Stack
       direction="column"
@@ -80,44 +126,11 @@ export default function InfoProduct({ productDetail }: infoProduct) {
         </Stack>
       </Stack>
       <Divider />
-      <Stack direction="row" justifyContent="center" alignItems="center">
-        <Text fontWeight="bold" color="blackAlpha.700" textAlign="center">
-          Quantity:{" "}
-        </Text>
-        <NumberInput
-          size="sm"
-          defaultValue={quantityToBuy}
-          max={productDetail.quantity}
-          min={0}
-          maxW="100px"
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper
-              onChange={() => setQuantityToBuy(productDetail.quantity + 1)}
-            />
-            <NumberDecrementStepper
-              onChange={() => setQuantityToBuy(productDetail.quantity - 1)}
-            />
-          </NumberInputStepper>
-        </NumberInput>
-      </Stack>
-      <Stack direction="row" justifyContent="center">
+      <Stack direction="row" justifyContent="center" padding={5}>
         <Button
           colorScheme="blue"
           width="40%"
-          mt={5}
-          onClick={() => {
-            setCartProducts([...cartProducts, productDetail]);
-            toast({
-              title: "Product Added",
-              status: "success",
-              duration: 1000,
-              variant: "subtle",
-              position: "bottom-right",
-              isClosable: true,
-            });
-          }}
+          onClick={() => getIncrementQuantity()}
         >
           Add to cart
         </Button>

@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
 import {
-  Box,
   Flex,
   Heading,
   Text,
@@ -14,7 +12,8 @@ const TestimonialBubble = ({ heading, text }: any) => {
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       boxShadow={"lg"}
-      p={8}
+      spacing={2}
+      p={6}
       rounded={"xl"}
       align={"center"}
       pos={"relative"}
@@ -42,6 +41,10 @@ const TestimonialBubble = ({ heading, text }: any) => {
         textAlign={"center"}
         color={useColorModeValue("gray.600", "gray.400")}
         fontSize={"sm"}
+        minHeight={100}
+        maxHeight={100}
+        maxWidth={250}
+        minWidth={300}
       >
         {text}
       </Text>
@@ -66,7 +69,7 @@ export default function CardOfReviews({
     <Stack>
       <TestimonialBubble heading={heading} text={text}></TestimonialBubble>
       <Flex align={"center"} mt={8} direction={"column"}>
-        <Avatar src={src} mb={2} />
+        <Avatar src={src} mb={1} />
         <Stack spacing={-1} align={"center"}>
           <Text fontWeight={600}>{name}</Text>
           <Text

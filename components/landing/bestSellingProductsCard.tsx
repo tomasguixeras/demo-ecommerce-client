@@ -42,6 +42,7 @@ export default function BestSellingProductsCard({
             width="150"
             height="180"
             layout="responsive"
+            objectFit="fill"
             style={{ borderRadius: "8px" }}
           />
         </Stack>
